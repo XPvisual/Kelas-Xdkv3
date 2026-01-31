@@ -37,6 +37,7 @@ html, body {
 html{
   scroll-behavior: smooth;
   scroll-padding-top: 74px;
+    overflow-x: hidden;
 }
 
 body{
@@ -46,6 +47,8 @@ body{
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
+   overflow-x: hidden;
+  width: 100%;     
 }
 
 img{ display:block; max-width:100%; }
@@ -357,7 +360,7 @@ a{ color: inherit; text-decoration: none; }
 }
 
 /* MOBILE ONLY */
-@media (max-width: 600px){
+@media (max-width: 768px){
   .grid-seksi{
     grid-template-columns: 1fr;
   }
@@ -578,3 +581,4 @@ a{ color: inherit; text-decoration: none; }
   );
 
 }
+
