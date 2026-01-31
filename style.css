@@ -448,11 +448,11 @@ a{ color: inherit; text-decoration: none; }
 /* GALERI */
 .grid-galeri{
   .galeri-swipe{
-  overflow: visible; /* desktop: normal */
+  overflow: visible;
 }
 
 .img-tile{
-  margin: 0;              /* penting: ilangin margin default <figure> */
+  margin: 0;             
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--line);
@@ -460,12 +460,11 @@ a{ color: inherit; text-decoration: none; }
 }
 
 .img-tile img{
-  display: block;         /* penting: biar ga ada "celah" inline-img */
+  display: block;
   width: 100%;
   height: auto;
 }
 
-/* MOBILE: ubah jadi carousel geser */
 @media (max-width: 600px){
   .galeri-swipe{
     overflow-x: auto;
@@ -478,15 +477,13 @@ a{ color: inherit; text-decoration: none; }
   .grid-galeri{
     display: flex;
     flex-wrap: nowrap;
-    gap: 14px;            /* ini gap horizontalnya */
+    gap: 14px;         
   }
 
   .img-tile{
-    flex: 0 0 85%;        /* lebar kartu (coba 80% kalo kepanjangan) */
+    flex: 0 0 80%;        /* lebar kartu (coba 80% kalo kepanjangan) */
     scroll-snap-align: start;
   }
-
-  /* biar drag JS keliatan ada efek (opsional) */
   .galeri-swipe.dragging{
     cursor: grabbing;
   }
@@ -494,7 +491,7 @@ a{ color: inherit; text-decoration: none; }
   display:grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  /* GALERI SWIPE (MOBILE) */
+ 
 .galeri-swipe {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -711,5 +708,6 @@ a{ color: inherit; text-decoration: none; }
   outline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
 }
+
 
 
