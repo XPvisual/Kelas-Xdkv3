@@ -37,9 +37,8 @@ html, body {
 html{
   scroll-behavior: smooth;
   scroll-padding-top: 74px;
-    overflow-x: hidden;
+   overflow-x: hidden; 
 }
-
 body{
   margin: 0;
   font-family: var(--font);
@@ -47,8 +46,8 @@ body{
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
-   overflow-x: hidden;
-  width: 100%;     
+  overflow-x: hidden;     
+  width: 100%;           
 }
 
 img{ display:block; max-width:100%; }
@@ -56,6 +55,11 @@ img{ display:block; max-width:100%; }
 a{ color: inherit; text-decoration: none; }
 
 .container{
+   width: 100%;
+  max-width: 1200px; /* atau sesuai punya lu */
+  margin-inline: auto;
+  padding-inline: 16px;
+  box-sizing: border-box;
   width: min(100% - 2rem, var(--container));
   margin-inline: auto;
 }
@@ -579,10 +583,10 @@ a{ color: inherit; text-decoration: none; }
     rgba(16,185,129,.6),
     rgba(99,102,241,.0)
   );
-
-}
 }
 /* ===== Micro-interactions: hover/tap ===== */
+
+/* Supaya animasi halus */
 .img-tile,
 .mini-card,
 .person,
@@ -624,8 +628,5 @@ a{ color: inherit; text-decoration: none; }
 .nav a:focus-visible {
   outline: 2px solid rgba(99,102,241,.55);
   outline-offset: 3px;
-  {
   -webkit-tap-highlight-color: transparent;
 }
-}
-
