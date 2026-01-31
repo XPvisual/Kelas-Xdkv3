@@ -450,6 +450,43 @@ a{ color: inherit; text-decoration: none; }
   display:grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
+  /* GALERI SWIPE (MOBILE) */
+.galeri-swipe {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.galeri-track {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 10px;
+}
+
+.galeri-track .img-tile {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+
+/* SNAP EFFECT */
+.galeri-swipe {
+  scroll-snap-type: x mandatory;
+}
+
+/* DESKTOP BALIK KE GRID */
+@media (min-width: 768px) {
+  .galeri-swipe {
+    overflow: visible;
+  }
+
+  .galeri-track {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .galeri-track .img-tile {
+    flex: unset;
+  }
+}
 }
 
 /* FOOTER */
@@ -630,3 +667,4 @@ a{ color: inherit; text-decoration: none; }
   outline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
 }
+
