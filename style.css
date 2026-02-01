@@ -297,6 +297,36 @@ a{ color: inherit; text-decoration: none; }
   color: var(--muted);
   font-size: var(--small);
 }
+.focus-list li,
+.focus-item{
+  display: grid;
+  grid-template-columns: 1fr auto; /* teks ngambil sisa, ikon fixed */
+  align-items: center;
+  gap: 14px;
+}
+
+.focus-text{
+  /* optional: biar teks tetep rapi */
+  line-height: 1.3;
+}
+
+.ico-frame{
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255,255,255,.35);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ico-img{
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
 
 .focus-list li{
   display:flex;
@@ -682,6 +712,7 @@ a{ color: inherit; text-decoration: none; }
   outline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
 }
+
 
 
 
