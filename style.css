@@ -293,9 +293,19 @@ a{ color: inherit; text-decoration: none; }
   padding:0;
   margin: 0;
   display:grid;
-  gap: 10px;
+  gap: 18px;
   color: var(--muted);
   font-size: var(--small);
+   max-width: 420px;
+}
+
+
+.focus-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* bikin ikon nempel kanan */
+  gap: 16px;
+  width: 100%;
 }
 .focus-list li,
 .focus-item{
@@ -721,12 +731,21 @@ a{ color: inherit; text-decoration: none; }
   outline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
 }
+.ig-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
 
+.ig-link:hover{
+  text-decoration: underline;
+}
 
-
-
-
-
-
-
-
+.ig-link:focus-visible{
+  outline: 2px solid rgba(0,0,0,.35);
+  outline-offset: 3px;
+}
