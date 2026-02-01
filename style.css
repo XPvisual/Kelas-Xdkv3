@@ -447,62 +447,62 @@ a{ color: inherit; text-decoration: none; }
 
 /* GALERI */
 
-.galeri-swipe {
-  /* Default overflow handling */
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
+/* Desktop default: grid */
+.galeri-swipe{
+  overflow: visible;
 }
 
-.img-tile {
+.grid-galeri{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* figure default margin: 0 */
+.img-tile{
   margin: 0;
-  border-radius: var(--radius-xl, 12px);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid var(--line, #ccc);
-  background: rgba(255, 255, 255, .35);
-  position: relative;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.35);
 }
 
-.img-tile img {
+.img-tile img{
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  aspect-ratio: 4/3;
+  height: auto;
 }
 
-/* --- MOBILE FIRST (Tampilan HP: Swipe/Carousel) --- */
-@media (max-width: 767px) {
-  .galeri-swipe {
-    overflow-x: auto;     
+/* Mobile: jadi carousel swipe */
+@media (max-width: 600px){
+  .galeri-swipe{
+    overflow-x: auto;
     overflow-y: hidden;
-    scroll-snap-type: x mandatory; 
-    cursor: grab;
-  }
-  
-  .galeri-swipe.dragging {
-    cursor: grabbing;
-    scroll-snap-type: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+
+    /* biar gak nempel ke tepi layar */
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .grid-galeri {
-    display: flex;         
-    gap: 16px;             
-    padding-bottom: 20px; 
-    width: max-content;    
+  .grid-galeri{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 14px;
   }
 
-  .img-tile {
-    flex: 0 0 80vw;       
-    max-width: 350px;      
-    scroll-snap-align: center;
+  .img-tile{
+    flex: 0 0 85%;
+    scroll-snap-align: start;
   }
-  
-  .grid-galeri::after {
-    content: '';
-    display: block;
-    padding-right: 20px;
+
+  .galeri-swipe::-webkit-scrollbar{
+    display: none;
   }
 }
+
 
 /* FOOTER */
 .site-footer{
@@ -682,6 +682,7 @@ a{ color: inherit; text-decoration: none; }
   outline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
 }
+
 
 
 
