@@ -327,13 +327,23 @@ a{ color: inherit; text-decoration: none; }
   object-fit: contain;
   display: block;
 }
-
 .focus-list li{
   display:flex;
   align-items:center;
-  gap: 10px;
-  
-  
+  gap: 12px;
+}
+.focus-list li .ico-img{
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.5);
+}
+.ico-frame{
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 .ico{
@@ -712,6 +722,7 @@ a{ color: inherit; text-decoration: none; }
   outline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
 }
+
 
 
 
