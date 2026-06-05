@@ -1,0 +1,296 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #e9fbff;
+  color: #111827;
+  font-family: var(--font-body, system-ui, sans-serif);
+}
+
+/* HEADER */
+.inbox-header {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 26px;
+
+  padding: 14px 48px;
+
+  background: #2d3548;
+  color: #fff;
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.inbox-brand {
+  font-family: var(--font-display, system-ui, sans-serif);
+  font-size: 0.95rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.inbox-nav {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+
+.inbox-nav a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  transition: opacity .2s ease;
+}
+
+.inbox-nav a:hover {
+  opacity: .7;
+}
+
+.inbox-user-chip {
+  min-width: 190px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 8px 14px;
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+
+  text-decoration: none;
+}
+
+.inbox-user-chip img {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.inbox-user-chip span {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+/* PAGE */
+.inbox-page {
+  width: min(100%, 1120px);
+  min-height: calc(100vh - 76px);
+
+  margin: 0 auto;
+  padding: 46px 42px 80px;
+}
+
+.inbox-top {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 80px;
+}
+
+.inbox-back {
+  position: absolute;
+  left: 0;
+
+  color: #111827;
+  text-decoration: none;
+
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.inbox-top h1 {
+  margin: 0;
+
+  color: rgba(17, 24, 39, 0.48);
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+}
+
+.inbox-list {
+  width: min(100%, 960px);
+  margin: 0 auto;
+
+  display: grid;
+  gap: 18px;
+}
+
+.inbox-card {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  align-items: center;
+  gap: 24px;
+
+  padding: 30px 36px;
+
+  border-radius: 14px;
+
+  background: #cbd6e5;
+  color: #111827;
+
+  text-decoration: none;
+
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    box-shadow .2s ease;
+}
+
+.inbox-card:hover {
+  transform: translateY(-3px);
+  background: #c1cedf;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+}
+
+.inbox-card img {
+  width: 82px;
+  height: 82px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  background: #d9dee8;
+}
+
+.inbox-card-info {
+  min-width: 0;
+}
+
+.inbox-card-info h2 {
+  margin: 0 0 8px;
+
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+
+.inbox-card-info .last-chat {
+  margin: 0;
+
+  font-size: 0.98rem;
+  color: rgba(17, 24, 39, 0.58);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inbox-time {
+  align-self: start;
+
+  color: rgba(17, 24, 39, 0.48);
+  font-size: 0.86rem;
+  white-space: nowrap;
+}
+
+.inbox-loading,
+.inbox-empty {
+  text-align: center;
+  color: rgba(17, 24, 39, 0.48);
+  font-size: 1rem;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .inbox-header {
+    grid-template-columns: 1fr;
+    gap: 14px;
+
+    padding: 16px 18px;
+  }
+
+  .inbox-brand {
+    font-size: 0.95rem;
+  }
+
+  .inbox-nav {
+    justify-content: flex-start;
+    gap: 18px;
+
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .inbox-nav a {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  .inbox-user-chip {
+    width: fit-content;
+    min-width: 0;
+
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+
+  .inbox-user-chip img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .inbox-page {
+    padding: 34px 18px 70px;
+  }
+
+  .inbox-top {
+    margin-bottom: 56px;
+  }
+
+  .inbox-back {
+    font-size: 0.95rem;
+  }
+
+  .inbox-top h1 {
+    font-size: 1rem;
+  }
+
+  .inbox-card {
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+
+    padding: 20px 18px;
+  }
+
+  .inbox-card img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .inbox-card-info h2 {
+    font-size: 1.05rem;
+  }
+
+
+  .inbox-card-info .last-chat {
+    font-size: 0.82rem;
+  }
+
+  .inbox-time {
+    grid-column: 2;
+    justify-self: start;
+
+    margin-top: -8px;
+
+    font-size: 0.75rem;
+  }
+}

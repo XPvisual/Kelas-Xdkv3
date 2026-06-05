@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Inbox - X DKV 3</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inbox.css">
+</head>
+
+<body>
+
+  <header class="inbox-header">
+
+    <div class="inbox-brand">
+      X DKV 3 - SMKN 1 Tsm
+    </div>
+
+    <nav class="inbox-nav">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#karya">Karya</a>
+      <a href="index.html#tentang">Tentang</a>
+      <a href="index.html#cara">Cara</a>
+      <a href="index.html#struktur">Struktur</a>
+    </nav>
+
+    <a href="profile.html" class="inbox-user-chip" id="inboxUserChip">
+      <img src="images/pp-01.png" alt="Profile" id="inboxUserAvatar">
+      <span id="inboxUsername">Username</span>
+    </a>
+
+  </header>
+
+  <main class="inbox-page">
+
+    <div class="inbox-top">
+      <a href="index.html" class="inbox-back">
+        ← Kembali
+      </a>
+
+      <h1>Riwayat chat</h1>
+    </div>
+
+    <section class="inbox-list" id="inboxList">
+      <p class="inbox-loading">Memuat riwayat chat...</p>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="inbox.js"></script>
+</body>
+</html>
