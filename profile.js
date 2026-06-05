@@ -85,31 +85,45 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.setItem('xdkv3_currentUser', JSON.stringify(currentUser));
   }
 
-  const authUser = await getAuthUser();
-
-  if (!authUser) {
-    alert('Kamu harus login dulu.');
-    window.location.href = 'login.html';
-    return;
-  }
-
   const params = new URLSearchParams(window.location.search);
-  const viewedUserId = params.get('userId') || authUser.id;
+const viewedUserId = params.get('userId');
 
-  const profileUser = await getProfile(viewedUserId);
-  const currentProfile = await getProfile(authUser.id);
+const authUser = await getAuthUser();
 
-  if (!profileUser) {
-    alert('Profile tidak ditemukan.');
-    window.location.href = 'index.html';
-    return;
+if (!viewedUserId && !authUser) {
+  alert('Kamu harus login dulu.');
+  window.location.href = 'login.html';
+  return;
+}
+
+const profileIdToView = viewedUserId || authUser.id;
+
+const profileUser = await getProfile(profileIdToView);
+const currentProfile = authUser ? await getProfile(authUser.id) : null;
+
+if (!profileUser) {
+  alert('Profile tidak ditemukan.');
+  window.location.href = 'index.html';
+  return;
+}
+
+if (currentProfile && authUser) {
+  saveCurrentUserToLocalStorage(currentProfile, authUser);
+}
+
+const isOwnProfile =
+  authUser && String(authUser.id) === String(profileUser.id);
+
+const profileChatBtn = document.getElementById('profileChatBtn');
+
+if (profileChatBtn) {
+  if (isOwnProfile) {
+    profileChatBtn.style.display = 'none';
+  } else {
+    profileChatBtn.href = `chat.html?userId=${profileUser.id}`;
   }
+}
 
-  if (currentProfile) {
-    saveCurrentUserToLocalStorage(currentProfile, authUser);
-  }
-
-  const isOwnProfile = String(authUser.id) === String(profileUser.id);
   if (worksTitle) {
   worksTitle.textContent = isOwnProfile
     ? 'My Works'
@@ -236,9 +250,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function deleteMyPost(postId, imagePath) {
+    if (!authUser) {
+  alert('Kamu harus login dulu.');
+  return;
+}
+
     const confirmDelete = confirm(
       'Hapus karya ini? Postingan yang dihapus tidak akan tampil lagi di profile dan halaman utama.'
     );
+    
 
     if (!confirmDelete) return;
 
