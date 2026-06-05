@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Chat - X DKV 3</title>
+
+  <link rel="stylesheet" href="chat.css">
+</head>
+
+<body>
+
+  <main class="chat-page">
+
+    <section class="chat-shell">
+
+      <header class="chat-header">
+
+        <a href="javascript:history.back()" class="chat-back-btn">
+          ←
+        </a>
+
+        <img
+          src="images/pp-01.png"
+          alt="Profile"
+          class="chat-user-avatar"
+          id="chatUserAvatar"
+        >
+
+        <div class="chat-user-info">
+          <h1 id="chatUsername">User</h1>
+          <p id="chatUserDescription">Description</p>
+        </div>
+
+      </header>
+
+      <div class="chat-date-divider">
+        Hari ini
+      </div>
+
+      <section class="chat-messages" id="chatMessages">
+        <p class="chat-loading">Memuat chat...</p>
+      </section>
+
+      <form class="chat-form" id="chatForm">
+
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Masukan teks..."
+          autocomplete="off"
+        >
+
+        <button type="submit" class="send-chat-btn" aria-label="Kirim pesan">
+          ➤
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>
