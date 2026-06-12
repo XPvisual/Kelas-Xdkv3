@@ -214,79 +214,109 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const currentUser = JSON.parse(localStorage.getItem('xdkv3_currentUser'));
 
-async function hasUnreadMessages(userId) {
-  const { count, error } = await supabaseClient
-    .from('messages')
-    .select('*', { count: 'exact', head: true })
-    .eq('receiver_id', userId)
-    .is('read_at', null);
+  async function hasUnreadMessages(userId) {
+    const { count, error } = await supabaseClient
+      .from('messages')
+      .select('*', { count: 'exact', head: true })
+      .eq('receiver_id', userId)
+      .is('read_at', null);
 
-  if (error) {
-    console.error('Gagal cek unread messages:', error);
-    return false;
+    if (error) {
+      console.error('Gagal cek unread messages:', error);
+      return false;
+    }
+
+    return count > 0;
   }
 
-  return count > 0;
-}
+  async function hasNewLikeActivities(userId) {
+    const lastSeen =
+      localStorage.getItem(`xdkv3_lastInboxSeen_${userId}`) ||
+      '1970-01-01T00:00:00.000Z';
+
+    const { count, error } = await supabaseClient
+      .from('post_likes')
+      .select(`
+        id,
+        posts!inner (
+          user_id
+        )
+      `, { count: 'exact', head: true })
+      .eq('posts.user_id', userId)
+      .neq('user_id', userId)
+      .gt('created_at', lastSeen);
+
+    if (error) {
+      console.error('Gagal cek aktivitas like baru:', error);
+      return false;
+    }
+
+    return count > 0;
+  }
+
+  async function renderAdminShortcut() {
+    const adminShortcutWrap = document.getElementById('adminShortcutWrap');
+
+    if (!adminShortcutWrap) return;
+
+    const { data: authData, error: authError } = await supabaseClient.auth.getUser();
+
+    if (authError || !authData.user) {
+      adminShortcutWrap.classList.remove('is-visible');
+      return;
+    }
+
+    const { data: profile, error: profileError } = await supabaseClient
+      .from('profiles')
+      .select('role')
+      .eq('id', authData.user.id)
+      .single();
+
+    if (profileError || !profile) {
+      adminShortcutWrap.classList.remove('is-visible');
+      return;
+    }
+
+    if (profile.role === 'admin') {
+      adminShortcutWrap.classList.add('is-visible');
+    } else {
+      adminShortcutWrap.classList.remove('is-visible');
+    }
+  }
 
   if (!currentUser) {
-   navAuth.innerHTML = `
-  <a href="login.html" class="login-chip">
-    <span>Login untuk upload</span>
-  </a>
-`;
+    navAuth.innerHTML = `
+      <a href="login.html" class="login-chip">
+        <span>Login untuk upload</span>
+      </a>
+    `;
+
+    await renderAdminShortcut();
     return;
   }
 
-  const unread = await hasUnreadMessages(currentUser.id);
+  const unreadMessages = await hasUnreadMessages(currentUser.id);
+  const newLikeActivities = await hasNewLikeActivities(currentUser.id);
 
-navAuth.innerHTML = `
-  <a
-    href="inbox.html"
-    class="nav-chat-btn ${unread ? 'has-unread' : ''}"
-    title="Pesan"
-    aria-label="Pesan"
-  >
-    💬
-  </a>
+  const unread = unreadMessages || newLikeActivities;
 
-  <a href="profile.html" class="profile-chip">
-    <img src="${currentUser.avatar || 'images/pp-01.png'}" alt="Profile">
-    <span>${currentUser.username}</span>
-  </a>
-`;
+  navAuth.innerHTML = `
+    <a
+      href="inbox.html"
+      class="nav-chat-btn ${unread ? 'has-unread' : ''}"
+      title="Pesan"
+      aria-label="Pesan"
+    >
+      💬
+    </a>
 
-async function renderAdminShortcut() {
-  const adminShortcutWrap = document.getElementById('adminShortcutWrap');
+    <a href="profile.html" class="profile-chip">
+      <img src="${currentUser.avatar || 'images/pp-01.png'}" alt="Profile">
+      <span>${currentUser.username}</span>
+    </a>
+  `;
 
-  if (!adminShortcutWrap) return;
-
-  const { data: authData, error: authError } = await supabaseClient.auth.getUser();
-
-  if (authError || !authData.user) {
-    adminShortcutWrap.classList.remove('is-visible');
-    return;
-  }
-
-  const { data: profile, error: profileError } = await supabaseClient
-    .from('profiles')
-    .select('role')
-    .eq('id', authData.user.id)
-    .single();
-
-  if (profileError || !profile) {
-    adminShortcutWrap.classList.remove('is-visible');
-    return;
-  }
-
-  if (profile.role === 'admin') {
-    adminShortcutWrap.classList.add('is-visible');
-  } else {
-    adminShortcutWrap.classList.remove('is-visible');
-  }
-}
-
-await renderAdminShortcut();
+  await renderAdminShortcut();
 });
 
 /* ============================================
@@ -300,33 +330,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!toast) return;
 
   const currentUser = JSON.parse(localStorage.getItem('xdkv3_currentUser'));
-  async function hasUnreadMessages(userId) {
-  const { count, error } = await supabaseClient
-    .from('messages')
-    .select('*', { count: 'exact', head: true })
-    .eq('receiver_id', userId)
-    .is('read_at', null);
-
-  if (error) {
-    console.error('Gagal cek unread messages:', error);
-    return false;
-  }
-
-  return count > 0;
-}
   const toastClosed = sessionStorage.getItem('xdkv3_loginToastClosed');
-  
 
-  // Kalau user sudah login, notif tidak muncul
   if (currentUser) return;
 
-  // Kalau user sudah nutup notif di sesi ini, jangan muncul lagi
   if (toastClosed === 'true') return;
 
   setTimeout(() => {
     toast.classList.add('show');
   }, 1200);
-
 
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
@@ -352,6 +364,102 @@ document.addEventListener('DOMContentLoaded', () => {
 ============================================ */
 
 document.addEventListener('DOMContentLoaded', async () => {
+  async function setupLikeButtons() {
+  const likeButtons = document.querySelectorAll('.post-like-btn');
+
+  if (!likeButtons.length) return;
+
+  const { data: authData } = await supabaseClient.auth.getUser();
+  const currentUser = authData?.user || null;
+
+  const postIds = Array.from(likeButtons).map((button) => {
+    return button.dataset.postId;
+  });
+
+  const { data: likes, error } = await supabaseClient
+    .from('post_likes')
+    .select('post_id, user_id')
+    .in('post_id', postIds);
+
+  if (error) {
+    console.error('Gagal mengambil likes:', error);
+    return;
+  }
+
+  const likeCountMap = new Map();
+  const likedByMeSet = new Set();
+
+  likes.forEach((like) => {
+    likeCountMap.set(
+      like.post_id,
+      (likeCountMap.get(like.post_id) || 0) + 1
+    );
+
+    if (currentUser && like.user_id === currentUser.id) {
+      likedByMeSet.add(like.post_id);
+    }
+  });
+
+  likeButtons.forEach((button) => {
+    const postId = button.dataset.postId;
+    const countSpan = button.querySelector('.like-count');
+
+    const count = likeCountMap.get(postId) || 0;
+
+    if (countSpan) {
+      countSpan.textContent = count;
+    }
+
+    if (likedByMeSet.has(postId)) {
+      button.classList.add('is-liked');
+      button.firstChild.textContent = '♥ ';
+    }
+
+    button.addEventListener('click', async () => {
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      button.disabled = true;
+
+      const isLiked = button.classList.contains('is-liked');
+
+      if (isLiked) {
+        const { error: unlikeError } = await supabaseClient
+          .from('post_likes')
+          .delete()
+          .eq('post_id', postId)
+          .eq('user_id', currentUser.id);
+
+        if (!unlikeError) {
+          button.classList.remove('is-liked');
+          button.firstChild.textContent = '♡ ';
+
+          const currentCount = Number(countSpan.textContent || 0);
+          countSpan.textContent = Math.max(0, currentCount - 1);
+        }
+      } else {
+        const { error: likeError } = await supabaseClient
+          .from('post_likes')
+          .insert({
+            post_id: postId,
+            user_id: currentUser.id
+          });
+
+        if (!likeError) {
+          button.classList.add('is-liked');
+          button.firstChild.textContent = '♥ ';
+
+          const currentCount = Number(countSpan.textContent || 0);
+          countSpan.textContent = currentCount + 1;
+        }
+      }
+
+      button.disabled = false;
+    });
+  });
+}
   const karyaScroll =
     document.getElementById('karyaScroll') ||
     document.querySelector('.karya-scroll');
@@ -451,28 +559,36 @@ document.addEventListener('DOMContentLoaded', async () => {
       </p>
 
       <div class="post-bottom-row">
-        <span class="tanggal">
-          ${formatDate(post.approved_at || post.created_at)}
-        </span>
+  <span class="tanggal">
+    ${formatDate(post.approved_at || post.created_at)}
+  </span>
 
-        <a
-          href="chat.html?userId=${post.user_id}&postId=${post.id}"
-          class="post-chat-btn"
-          title="Chat"
-          aria-label="Chat"
-        >
-          💬
-        </a>
-      </div>
+  <div class="post-actions">
+    <button
+      type="button"
+      class="post-like-btn"
+      data-post-id="${post.id}"
+      aria-label="Like"
+    >
+      ♡ <span class="like-count" data-like-count="${post.id}">0</span>
+    </button>
 
-    </div>
-
+    <a
+      href="chat.html?userId=${post.user_id}&postId=${post.id}"
+      class="post-chat-btn"
+      title="Chat"
+      aria-label="Chat"
+    >
+      💬
+    </a>
   </div>
+</div>
 `;
 
       karyaScroll.appendChild(card);
     });
   }
 
-  renderApprovedPosts();
+    await renderApprovedPosts();
+  await setupLikeButtons();
 });
