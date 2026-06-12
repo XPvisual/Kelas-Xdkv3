@@ -374,6 +374,52 @@ body {
   background: rgba(9, 7, 31, 0.16);
 }
 
+.post-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-like-btn {
+  min-width: 52px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: rgba(2, 7, 56, 0.06);
+  color: #020738;
+
+  font-size: 0.9rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform .18s ease,
+    background .18s ease,
+    color .18s ease;
+}
+
+.post-like-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(2, 7, 56, 0.12);
+}
+
+.post-like-btn.is-liked {
+  background: rgba(255, 68, 101, 0.12);
+  color: #ff3b63;
+}
+
+.post-like-btn:disabled {
+  opacity: .6;
+  cursor: wait;
+}
 /* ============================================
    TENTANG
    ============================================ */
