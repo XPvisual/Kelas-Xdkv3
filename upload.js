@@ -379,35 +379,43 @@ function makeSafeFileName(fileName) {
 
     const imageUrl = publicUrlData.publicUrl;
 
-    const { error: insertError } = await supabaseClient
-      .from('posts')
-      .insert({
-        user_id: supabaseUser.id,
-        image_url: imageUrl,
-        image_path: filePath,
-        category: selectedCategory,
-        post_type: selectedPostType,
-        aspect_mode: selectedAspect || 'square',
-        description: description,
-        status: 'pending',
-        is_featured: false
-      });
+    const { data: insertedPost, error: insertError } = await supabaseClient
+  .from('posts')
+  .insert({
+    user_id: supabaseUser.id,
+    image_url: imageUrl,
+    image_path: filePath,
+    category: selectedCategory,
+    post_type: selectedPostType,
+    aspect_mode: selectedAspect || 'square',
+    description: description,
+    status: 'pending',
+    is_featured: false
+  })
+  .select('id')
+  .single();
 
     if (insertError) {
-      console.error(insertError);
+  console.error(insertError);
 
-      await supabaseClient.storage
-        .from('artworks')
-        .remove([filePath]);
+  await supabaseClient.storage
+    .from('artworks')
+    .remove([filePath]);
 
-      alert('Gagal mengirim data postingan.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Review';
-      return;
-    }
+  alert('Gagal mengirim data postingan.');
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Review';
+  return;
+}
 
-    alert('Postingan berhasil dikirim ke admin review.');
-    window.location.href = 'profile.html';
+await logActivity('submit_post', 'post', insertedPost.id, {
+  page: 'upload.html',
+  category: selectedCategory,
+  post_type: selectedPostType
+});
+
+alert('Postingan berhasil dikirim ke admin review.');
+window.location.href = 'profile.html';
   });
 }
 });
