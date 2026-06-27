@@ -17,6 +17,34 @@ body {
    ADMIN PAGE
 ========================= */
 
+.back-button {
+  padding: 35px;
+}
+
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 57px;
+  background: #aaacce;;
+  border-radius: 18px;
+  position: relative;
+}
+
+.back:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.04);
+}
+.back-to {
+  text-decoration: none;
+  font-size: 18px;
+  font-style: bold;
+  font-family: "syne", system-ui, sans-serif;
+  color: rgb(6, 21, 41);
+}
+
+
 .admin-page {
   min-height: 100vh;
   padding: 64px 6%;
