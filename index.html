@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta name="description" content="Profil dan dokumentasi kelas X DKV 3 SMKN 1 Tasikmalaya. Berisi karya digital siswa, struktur kelas, dan galeri." />
+  <meta name="description" content="Profil dan dokumentasi kelas XI DKV 3 SMKN 1 Tasikmalaya. Berisi karya digital siswa, struktur kelas, dan galeri." />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>X DKV 3 – SMKN 1 Tasikmalaya</title>
-    <meta property="og:image" content="https://xpvisual.github.io/Kelas-Xdkv3/images/meta-thumbnail.png">
+  <title>XI DKV 3 – SMKN 1 Tasikmalaya</title>
+    <meta property="og:image" content="https://DKV2025.github.io/Kelas-Xdkv3/images/meta-thumbnail.png">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
 <meta name="google-site-verification" content="KkxpoHQ2nluWdUztHDBn_YaVvuRhFjkqKSikfa9u1ag" />
-<link rel="icon" type="image/webp" href="images/favicon.webp" sizes="32x32">
+<link rel="icon" type="image/webp" href="images/favicon.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -17,10 +17,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-  
+  <!-- ═══════════════════════════════════════
+       1. HEADER (sticky)
+  ═══════════════════════════════════════ -->
   <header class="site-header" id="top">
     <div class="container header-inner">
-      <p class="brand">X DKV 3 · SMKN 1 Tsm</p>
+      <p class="brand">XI DKV 3 · SMKN 1 Tsm</p>
 
       <nav class="nav" aria-label="Navigasi utama">
         <a href="#hero">Home</a>
@@ -35,13 +37,12 @@
 
   <main>
 
-
-
-
-    
+    <!-- ═══════════════════════════════════════
+         2. HERO — Slideshow karya + logo bawah
+    ═══════════════════════════════════════ -->
     <section class="hero" id="hero" aria-label="Hero slideshow karya">
 
-    
+      <!-- Slideshow area -->
       <div class="slideshow" aria-live="polite">
         <div class="slides-track" id="slidesTrack">
           <div class="slide"><img src="images/karya-01.jpg" alt="Karya 1" /></div>
@@ -53,22 +54,22 @@
           <div class="slide"><img src="images/karya-07.jpg" alt="Karya 6" /></div>
 
 
-          <!-- loop -->
+          <!-- duplikat untuk infinite loop -->
           <div class="slide" aria-hidden="true"><img src="images/karya-01.jpg" alt="" /></div>
           <div class="slide" aria-hidden="true"><img src="images/karya-02.jpg" alt="" /></div>
         </div>
 
-        
+        <!-- Tombol skip -->
         <div class="slide-controls">
           <button class="slide-btn" id="slidePrev" aria-label="Sebelumnya">&#8592;</button>
           <button class="slide-btn" id="slideNext" aria-label="Berikutnya">&#8594;</button>
         </div>
       </div>
 
-      
+      <!-- Logo + tagline di bawah slideshow -->
       <div class="hero-brand-bar">
         <div class="container hero-brand-inner">
-          <img class="hero-logo" src="images/logo-kelas.webp" alt="Logo Kelas X DKV 3" />
+          <img class="hero-logo" src="images/logo-kelas.webp" alt="Logo Kelas XI DKV 3" />
           <div class="hero-brand-text">
             <h1 class="hero-title">Tempat ide<br />menjadi visual</h1>
           </div>
@@ -78,22 +79,21 @@
     </section>
 
 
-
-
-    
+    <!-- ═══════════════════════════════════════
+         3. TENTANG KELAS DKV
+    ═══════════════════════════════════════ -->
     <section class="section" id="tentang" aria-labelledby="tentang-title">
       <div class="container">
         <h2 id="tentang-title" class="section-title">Tentang website</h2>
 
-      <p>Web ini adalah ruang portofolio digital siswa X DKV 3 yang dikembangkan sebagai project kreatif kelas.
+      <p>Web ini adalah ruang portofolio digital siswa DKV yang dikembangkan sebagai project kreatif kelas.
     Di sini, siswa DKV bisa menampilkan karya secara lebih luas, dan membangun sebuah identitas.
   </p>
 </section>
 
-
-
-
-    
+<!-- ============================================
+     KARYA SISWA
+============================================ -->
 <section class="karya-showcase" id="karya">
   <div class="karya-header">
     <h2>Karya siswa</h2>
@@ -114,7 +114,7 @@
 
       <div class="creator">
 
-        <a href="profile.html?userId=${post.userId}" class="post-author">
+        <a href="profile.html?userId=${post.userId}" alt="Profile" class="post-author">
   <img src="${post.avatar || 'images/pp-01.png'}" alt="${post.username}">
 </a>
 
@@ -141,7 +141,7 @@
         Category
       </span>
 
-      <img src="images/post-01.png" alt="Karya siswa">
+      <img src="images/post-02.webp" alt="Karya siswa">
 
       <div class="creator">
 
@@ -167,7 +167,7 @@
   </div>
 </section>
 
-
+<!-- 5. Cara Kami Berkarya -->
     <section class="section" id="cara" aria-labelledby="cara-title">
       <div class="container">
         <h2 id="cara-title" class="section-title">Cara kami berkarya</h2>
@@ -181,17 +181,14 @@
       </div>
     </section>
 
-
-
-
-
-
-    
+    <!-- ═══════════════════════════════════════
+         5. STRUKTUR KELAS
+    ═══════════════════════════════════════ -->
     <section class="section" id="struktur" aria-labelledby="struktur-title">
       <div class="container">
-        <h2 id="struktur-title" class="section-title">Struktur kelas XDKV3</h2>
+        <h2 id="struktur-title" class="section-title">Struktur kelas XI DKV 3</h2>
 
-        
+        <!-- Guru -->
         <div class="struktur-top">
           <article class="person">
             <img src="images/anggota-01.webp" alt="Foto wali kelas" loading="lazy" />
@@ -212,7 +209,7 @@
           </article>
         </div>
 
-        
+        <!-- Pengurus -->
         <div class="grid-seksi">
           <article class="person">
             <img src="images/anggota-03.webp" alt="Foto ketua murid" loading="lazy" />
@@ -267,10 +264,9 @@
     </section>
 
 
-
-    
-
-    <
+    <!-- ═══════════════════════════════════════
+         6. GALERI
+    ═══════════════════════════════════════ -->
     <section class="section" id="galeri" aria-labelledby="galeri-title">
       <div class="container">
         <h2 id="galeri-title" class="section-title">Galeri</h2>
@@ -300,10 +296,9 @@
   </a>
 </section>
 
-
-
-
-  
+  <!-- ═══════════════════════════════════════
+       7. FOOTER
+  ═══════════════════════════════════════ -->
   <footer class="site-footer" id="footer">
     <div class="container footer-inner">
 
