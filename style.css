@@ -846,8 +846,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(230, 236, 255, 0.8);
-  border: 1px solid var(--line);
+  background: rgba(149, 184, 190, 0.8);
   border-radius: 999px;
   padding: 6px 16px 6px 8px;
 }
@@ -863,8 +862,8 @@ body {
 .ig-link:hover { opacity: .75; }
  
 .ig-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
 }
  
